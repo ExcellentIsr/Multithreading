@@ -9,8 +9,8 @@ public class Runner extends Thread {
 		this.distance = distance;
 		this.race = race;
 	}
-	static private int RNM_DELAY_FROM = 20;
-	static private int RNM_DELAY_TO = 500;
+	static private int RNM_DELAY_FROM = 2;
+	static private int RNM_DELAY_TO = 5;
 	private Race race;
 	private int id;
 	private int distance;
@@ -18,9 +18,7 @@ public class Runner extends Thread {
 	
 	@Override
 	public void run() {
-		Instant start = Instant.now();
 		for (int i = distance; i > 0; i--) {
-			System.out.printf("#%d in %d meters from the finish\n", id, i);
 			int randomDelay = (int) (Math.random()*(RNM_DELAY_TO - RNM_DELAY_FROM) + RNM_DELAY_FROM);
 			try {
 				this.sleep(randomDelay);
@@ -28,8 +26,7 @@ public class Runner extends Thread {
 				
 			}
 		}
-		race.setWinnerId(id);
-		System.out.printf("Participant #%d on the finish\n", id);
+		race.setWinnerId(id, Instant.now());
 	}
 	
 	public long getTimeRun() {
